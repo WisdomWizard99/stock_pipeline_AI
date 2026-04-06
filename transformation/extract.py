@@ -1,10 +1,12 @@
 import os
+import sys
 import logging
 import pandas as pd
 from io import StringIO
 from datetime import datetime
 from azure.storage.blob import BlobServiceClient
 from dotenv import load_dotenv
+from config.config import CONNECTION_STRING, CONTAINER_NAME
 
 
 load_dotenv()
@@ -15,8 +17,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-CONTAINER_NAME    = os.getenv("AZURE_CONTAINER_NAME", "stock-data")
+# CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+# CONTAINER_NAME    = os.getenv("AZURE_CONTAINER_NAME", "stock-data")
 
 
 def get_container_client():
@@ -62,12 +64,6 @@ def read_blob_to_dataframe(blob_name: str) -> pd.DataFrame:
     Returns:
         pandas DataFrame with raw stock data
     """
-    if CONNECTION_STRING is None:
-        raise EnvironmentError(
-            "AZURE_STORAGE_CONNECTION_STRING not found. Check your .env file."
-        )
-
-    logger.info(f"Reading blob: {blob_name}")
 
     #Connect and get blob client
     container_client = get_container_client()
@@ -107,3 +103,20 @@ def extract_latest_blob() -> pd.DataFrame:
 if __name__ == "__main__":
     logger.info("Starting Extraction ... ")
     df = extract_latest_blob()
+    
+    print("\n── Shape ───────────────────────────────")
+    print(df.shape)
+
+    print("\n── Columns ─────────────────────────────")
+    print(df.columns.tolist())
+
+    print("\n── Data types ──────────────────────────")
+    print(df.dtypes)
+
+    print("\n── First 3 rows ────────────────────────")
+    print(df.head(3))
+
+    print("\n── Null check ──────────────────────────")
+    print(df.isnull().sum())
+
+    logger.info("=== Extraction complete ===")
