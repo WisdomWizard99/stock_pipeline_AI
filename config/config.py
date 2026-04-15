@@ -18,3 +18,7 @@ SNOWFLAKE_WAREHOUSE = os.getenv("SNOWFLAKE_WAREHOUSE", "STOCK_WH")
 # ── Pipeline settings ──────────────────────────────────────────────
 TICKERS = os.getenv("TICKERS", "AAPL,MSFT").split(",")
 PERIOD  = os.getenv("PERIOD", "1y")
+
+# ── Ollama  ──────────────────────────────────────────────
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2")
+
