@@ -4,7 +4,7 @@ An end-to-end **production-grade data engineering pipeline** that ingests stock 
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 yfinance API
@@ -212,20 +212,10 @@ streamlit run dashboard/app.py
 
 ##  AI Insights
 
-The AI layer queries your Snowflake Gold table and uses **Llama 3.2 running locally via Ollama** to generate:
+The AI layer queries the Snowflake Gold table and uses **Llama 3.2 running locally via Ollama** to generate:
 
 - **Market Summary** — overall sentiment, best/worst performers, trend signals
 - **Natural Language Q&A** — ask questions in plain English about your stocks
 - **Ticker Deep Dive** — detailed 30-day analysis for any individual stock
 
----
-
-##  Project Status
-
-- [x] Week 1 — Ingestion (yfinance → Azure Blob)
-- [x] Week 2 — ETL Pipeline (Azure Blob → Snowflake Silver + Gold)
-- [x] Week 3 — AI Insights (Ollama + Llama 3.2)
-- [ ] Week 4 — Streamlit Dashboard
-
----
 
